@@ -1,8 +1,12 @@
 package com.zlzhang.stockanalysis;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.zlzhang.stockanalysis.list.view.SHActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,13 +19,44 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //String url = "http://hq.sinajs.cn/list=sh601006";
+//                String url = "http://hq.sinajs.cn/list=sh601006";
+//                Log.d("test", "test" +  getHttpURLConnection(url, ""));
+//            }
+//        }).start();
+
+//        readTest();
+    }
+
+    private void readTest(){
+        final String sh = StockAnalysisUtil.readAssetsTxt(this, "sh");
+        final String[] shStocks = sh.split(",");
+        String sz = StockAnalysisUtil.readAssetsTxt(this, "sz");
+        String[] szStocks = sz.split(",");
+        int shStocksSize = shStocks.length;
+        int szStocksSize = szStocks.length;
+
+        final String[] allStocks = new String[shStocksSize + szStocksSize];
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://hq.sinajs.cn/list=sh601006";
-                Log.d("test", "test" +  getHttpURLConnection(url, ""));
+                for (String shStock : shStocks) {
+                    String url = "http://hq.sinajs.cn/list=sh" + shStock;
+                   String result =  getHttpURLConnection(url, "");
+                   StockAnalysisUtil.changeToModel(result);
+                   System.out.println(result);
+
+                }
+
             }
         }).start();
+
+//        for (String szStock : szStocks) {
+//            allStocks[i++] = szStock;
+//        }
 
     }
 
@@ -39,9 +74,8 @@ public class MainActivity extends Activity {
 
             connection.setDoOutput(true);//设置可以输出
 
-            // (如果不设此项,在传送序列化对象时,当WEB服务默认的不是这种类型时可能抛java.io.EOFException)
 
-            connection.setRequestProperty("Content-type","application/x-java-serialized-object");
+            connection.setRequestProperty("contentType", "GBK");
 
             connection.setRequestMethod("GET");//设置请求方式//必须是大写
 
@@ -54,8 +88,7 @@ public class MainActivity extends Activity {
             connection.setUseCaches(true);
 
             connection.connect();//连接服务器
-
-            BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getInputStream(), "GBK"));
 
             String data;
 
@@ -80,4 +113,9 @@ public class MainActivity extends Activity {
     }
 
 
+    public void gotoList(View view) {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, SHActivity.class);
+        startActivity(intent);
+    }
 }

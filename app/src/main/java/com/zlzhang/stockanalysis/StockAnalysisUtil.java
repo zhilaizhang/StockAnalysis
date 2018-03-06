@@ -1,8 +1,117 @@
 package com.zlzhang.stockanalysis;
 
+import android.content.Context;
+
+import com.zlzhang.stockanalysis.modle.StockModel;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 /**
  * Created by zhangzhilai on 2018/3/2.
  */
 
 public class StockAnalysisUtil {
+
+    public static String readAssetsTxt(Context context, String fileName){
+        try {
+            //Return an AssetManager instance for your application's package
+            InputStream is = context.getAssets().open(fileName+".txt");
+            int size = is.available();
+            // Read the entire asset into a local byte buffer.
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            // Convert the buffer into a string.
+            String text = new String(buffer, "utf-8");
+            // Finally stick the string into the text view.
+            return text;
+        } catch (IOException e) {
+            // Should never happen!
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+        return "读取错误，请检查文件名";
+    }
+
+
+    public static StockModel changeToModel(String rawStock){
+        String stockCode = rawStock.substring(13, 19);
+        String stockInfo = rawStock.substring(21);
+        String[] strings  = stockInfo.split(",");
+        if (strings.length < 30) {
+            return null;
+        }
+        StockModel stockModel = new StockModel();
+        stockModel.setCode(stockCode);
+        stockModel.setName(strings[0]);
+        stockModel.setTodayOpen(Float.parseFloat(strings[1]));
+        stockModel.setYesterdayClose(Float.parseFloat(strings[2]));
+        stockModel.setNowPrice(Float.parseFloat(strings[3]));
+        stockModel.setTodayHighest(Float.parseFloat(strings[4]));
+        stockModel.setTodayLowest(Float.parseFloat(strings[5]));
+        stockModel.setDealNum(Long.parseLong(strings[8]));
+        stockModel.setOBV(Double.parseDouble(strings[9]));
+        stockModel.setDate(strings[30]);
+        stockModel.setTime(strings[31]);
+
+        return stockModel;
+    }
+
+
+    public static String getHttpURLConnection(String urlString,String params){
+
+        String result = null;
+
+        try {
+
+            URL url = new URL(urlString+"?"+params);
+
+            HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+
+            connection.setDoInput(true);//设置可输入
+
+            connection.setDoOutput(true);//设置可以输出
+
+
+            connection.setRequestProperty("contentType", "GBK");
+
+            connection.setRequestMethod("GET");//设置请求方式//必须是大写
+
+            connection.setConnectTimeout(5000);//设置连接超时时间。
+
+            connection.setReadTimeout(5000);//设置读数据的超时时间
+
+            // Post 请求不能使用缓存
+
+            connection.setUseCaches(true);
+
+            connection.connect();//连接服务器
+            BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getInputStream(), "GBK"));
+
+            String data;
+
+            StringBuilder builder=new StringBuilder();
+
+            while((data=reader.readLine())!=null){
+
+                builder.append(data);
+
+            }
+
+            result=builder.toString();
+
+        }catch(Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        return result;
+
+    }
 }
