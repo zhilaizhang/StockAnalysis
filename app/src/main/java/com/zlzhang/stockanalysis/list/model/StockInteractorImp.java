@@ -27,11 +27,13 @@ public class StockInteractorImp implements IStockInteractor {
                 for (String shStock : shStocks) {
                     String url = "http://hq.sinajs.cn/list=sh" + shStock;
                     String result =  StockAnalysisUtil.getHttpURLConnection(url, "");
+                    if (result == null) {
+                        continue;
+                    }
                     StockModel stockModel = StockAnalysisUtil.changeToModel(result);
                     if (stockModel != null) {
                         stockModelList.add(stockModel);
                     }
-
                 }
                 onStockListener.onStockGot(stockModelList);
             }
