@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class StockModel implements Serializable{
 
+    private int    id;              //数据库存储id
     private String code;           //股票代码
     private String name;           //股票名称
     private float todayOpen;       //今开
