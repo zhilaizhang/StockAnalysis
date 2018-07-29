@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 1<---->1
  */
 
-public class StockModel implements Serializable{
+public class StockInfo implements Serializable{
 
     private int id;                 //股票代码对应的唯一id
     private String code;           //股票代码
