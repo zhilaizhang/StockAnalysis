@@ -13,9 +13,16 @@ public interface IMainInteractor {
 
     void getAllStocks(OnGetDataListener onGetDataListener);
 
+    void uploadStocks(List<StockModel> stockModels, OnUploadListener onUploadListener);
+
     interface OnGetDataListener{
         void onGetSucceed(List<StockModel> stockModelList);
         void onGetFailed();
         void onProgress(int num);
+    }
+
+    interface OnUploadListener{
+        void onUploadSucceed();
+        void onUploadFailed();
     }
 }

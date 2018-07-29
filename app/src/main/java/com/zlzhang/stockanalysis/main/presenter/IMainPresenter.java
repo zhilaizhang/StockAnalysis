@@ -8,4 +8,5 @@ public interface IMainPresenter {
 
      void getAllData();
 
+     void uploadAllData();
 }

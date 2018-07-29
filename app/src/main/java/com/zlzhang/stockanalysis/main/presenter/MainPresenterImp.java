@@ -80,4 +80,19 @@ public class MainPresenterImp implements IMainPresenter {
             }
         });
     }
+
+    @Override
+    public void uploadAllData() {
+        mMainInteractor.uploadStocks(null, new IMainInteractor.OnUploadListener() {
+            @Override
+            public void onUploadSucceed() {
+
+            }
+
+            @Override
+            public void onUploadFailed() {
+
+            }
+        });
+    }
 }

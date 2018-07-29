@@ -40,7 +40,7 @@ public class MainInteractorImp implements IMainInteractor {
                 StockDataCache.getInstance().setmSHStockModelList(shStocks);
 
                 List<StockModel> szStocks = getStockModels("sz", szStockNames);
-                StockDataCache.getInstance().setmSHStockModelList(szStocks);
+                StockDataCache.getInstance().setmSZStockModelList(szStocks);
 
                 List<StockModel> allStocks = new ArrayList<>();
                 allStocks.addAll(shStocks);
@@ -50,6 +50,16 @@ public class MainInteractorImp implements IMainInteractor {
             }
         }).start();
 
+    }
+
+    @Override
+    public void uploadStocks(List<StockModel> stockModels, OnUploadListener onUploadListener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //TODO 上传
+            }
+        }).start();
     }
 
     private List<StockModel> getStockModels(String position, String[] stocks){

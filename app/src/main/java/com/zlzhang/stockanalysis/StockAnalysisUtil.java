@@ -17,6 +17,8 @@ import java.net.URL;
 
 public class StockAnalysisUtil {
 
+    public static final String STOCK_TYPE = "stock_type";
+
     public static String readAssetsTxt(Context context, String fileName){
         try {
             //Return an AssetManager instance for your application's package
@@ -114,4 +116,18 @@ public class StockAnalysisUtil {
         return result;
 
     }
+
+
+    /**
+     * 计算股票的涨跌幅
+     * @param nowPrice
+     * @param yesterdayPrice
+     * 涨跌幅度=(现价-昨收价)/昨收价*100% (计算值正为涨,负为跌)
+     * @return
+     */
+    public static double getStockRiseRate(double nowPrice, double yesterdayPrice){
+        double riseRate =  (yesterdayPrice - nowPrice) / yesterdayPrice;
+        return riseRate;
+    }
+
 }
