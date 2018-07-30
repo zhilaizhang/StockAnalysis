@@ -15,7 +15,6 @@
 
     <Button
         android:id="@+id/upload_data"
-        android:onClick="uploadData"
         android:visibility="gone"
         android:layout_below="@+id/getData"
         android:text="@string/upload_data"

@@ -15,6 +15,7 @@ import com.zlzhang.stockanalysis.list.view.StockListActivity;
 import com.zlzhang.stockanalysis.main.presenter.IMainPresenter;
 import com.zlzhang.stockanalysis.main.presenter.MainPresenterImp;
 import com.zlzhang.stockanalysis.modle.StockType;
+import com.zlzhang.stockanalysis.upload.view.UploadActvity;
 
 public class MainActivity extends Activity implements IMainView, View.OnClickListener{
 
@@ -108,10 +109,17 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
             case R.id.gotoSZ:
                 gotoSZ();
                 break;
+            case R.id.upload_data:
+                gotoUploadData();
+                break;
+
         }
     }
 
-    public void uploadData(View view) {
-        mMainPresenter.uploadAllData();
+    public void gotoUploadData() {
+        Intent uploadIntent = new Intent();
+        uploadIntent.setClass(this, UploadActvity.class);
+        startActivity(uploadIntent);
+//        mMainPresenter.uploadAllData();
     }
 }
