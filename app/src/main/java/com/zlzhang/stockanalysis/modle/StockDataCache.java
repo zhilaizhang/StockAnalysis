@@ -1,5 +1,6 @@
 package com.zlzhang.stockanalysis.modle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,5 +39,11 @@ public class StockDataCache {
         this.mSZStockModelList = mSZStockModelList;
     }
 
+    public List<StockModel> getAllStockModelList(){
+        List<StockModel> stockModels = new ArrayList<>();
+        stockModels.addAll(mSHStockModelList);
+        stockModels.addAll(mSZStockModelList);
+        return stockModels;
+    }
 
 }

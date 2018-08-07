@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StockAnalysis</string>
     <string name="get_data">获取数据</string>
+    <string name="upload_data">上传数据</string>
     <string name="sh">上证</string>
     <string name="sz">深证</string>
 </resources>

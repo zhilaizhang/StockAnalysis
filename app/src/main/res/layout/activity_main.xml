@@ -14,16 +14,24 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:onClick="gotoSH"
-        android:id="@+id/gotoSH"
+        android:id="@+id/upload_data"
+        android:visibility="gone"
         android:layout_below="@+id/getData"
+        android:text="@string/upload_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/gotoSH"
+        android:visibility="gone"
+        android:layout_below="@+id/upload_data"
         android:text="@string/sh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:onClick="gotoSZ"
         android:id="@+id/gotoSZ"
+        android:visibility="gone"
         android:layout_below="@+id/gotoSH"
         android:text="@string/sz"
         android:layout_width="match_parent"
