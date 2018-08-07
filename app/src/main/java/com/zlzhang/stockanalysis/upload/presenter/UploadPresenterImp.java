@@ -41,4 +41,10 @@ public class UploadPresenterImp implements IUploadPresenter {
     public void uploadStock() {
 
     }
+
+    @Override
+    public void uploadStockInfo() {
+        List<StockModel> stockModels = mStockDataCache.getAllStockModelList();
+        mIUploadInteractor.uploadStockInfo(stockModels);
+    }
 }

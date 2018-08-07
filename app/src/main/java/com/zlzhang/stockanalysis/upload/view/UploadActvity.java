@@ -49,6 +49,11 @@ public class UploadActvity extends Activity implements IUploadView{
         mUploadPresenter.uploadStocks();
     }
 
+    public void uploadInfo(View view) {
+        mUploadPresenter.uploadStockInfo();
+
+    }
+
 //    public void uploadData(View view) {
 //        mUploadPresenter.uploadStocks();
 //    }

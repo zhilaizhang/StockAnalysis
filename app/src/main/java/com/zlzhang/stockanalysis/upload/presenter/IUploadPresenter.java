@@ -15,4 +15,7 @@ public interface IUploadPresenter {
 
     void uploadStock();
 
+
+    void uploadStockInfo();
+
 }

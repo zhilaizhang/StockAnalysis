@@ -13,4 +13,6 @@ public interface IUploadInteractor {
     void uploadStocks(List<StockModel> stockModelList);
 
     void uploadStock(StockModel stockModel);
+
+    void uploadStockInfo(List<StockModel> stockModelList);
 }

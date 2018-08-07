@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/upload_stock_info"
+        android:visibility="gone"
+        android:layout_below="@+id/upload_data"
+        android:onClick="uploadInfo"
+        android:text="@string/upload_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 
     <LinearLayout
