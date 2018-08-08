@@ -2,11 +2,18 @@ package com.zlzhang.stockanalysis.main.model;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
+import com.zlzhang.stockanalysis.modle.GlobalVariable;
 import com.zlzhang.stockanalysis.modle.StockDataCache;
 import com.zlzhang.stockanalysis.modle.StockModel;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,11 +52,37 @@ public class MainInteractorImp implements IMainInteractor {
                 List<StockModel> allStocks = new ArrayList<>();
                 allStocks.addAll(shStocks);
                 allStocks.addAll(szStocks);
+                storeAllStocks(allStocks);
                 onGetDataListener.onGetSucceed(allStocks);
 
             }
         }).start();
 
+    }
+
+    private void storeAllStocks(List<StockModel> stockModels){
+        Gson gson = new Gson();
+        String stockString = gson.toJson(stockModels);
+        String date = new Date().toString();
+        String file = GlobalVariable.STOCK_PATH + date;
+        writeToFile(file, stockString);
+    }
+
+    public  void writeToFile(String file, String conent) {
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file, true)));
+            out.write(conent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
