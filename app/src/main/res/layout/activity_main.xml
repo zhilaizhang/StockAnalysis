@@ -12,11 +12,33 @@
         android:text="@string/get_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/ip_layout"
+        android:layout_below="@+id/getData"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/ip_edittext"
+            android:text="192.168.1.103"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="确定"
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/upload_data"
         android:visibility="gone"
-        android:layout_below="@+id/getData"
+        android:layout_below="@+id/ip_layout"
         android:text="@string/upload_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

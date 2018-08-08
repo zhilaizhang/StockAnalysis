@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.zlzhang.stockanalysis.main.view.MainActivity">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="ip:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/ip_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/upload_data"
@@ -15,10 +29,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:layout_below="@+id/upload_data"
+        android:id="@+id/upload_status_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/upload_stock_info"
         android:visibility="gone"
-        android:layout_below="@+id/upload_data"
+        android:layout_below="@+id/upload_status_textview"
         android:onClick="uploadInfo"
         android:text="@string/upload_info"
         android:layout_width="match_parent"

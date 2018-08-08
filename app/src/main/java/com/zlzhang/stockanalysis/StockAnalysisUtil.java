@@ -127,8 +127,8 @@ public class StockAnalysisUtil {
             URL url = new URL(urlPath);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5 * 1000);
-            conn.setReadTimeout(5 * 1000);
+            conn.setConnectTimeout(300 * 1000);
+            conn.setReadTimeout(300 * 1000);
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);

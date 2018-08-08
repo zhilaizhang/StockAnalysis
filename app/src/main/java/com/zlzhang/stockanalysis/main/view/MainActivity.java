@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.list.view.StockListActivity;
 import com.zlzhang.stockanalysis.main.presenter.IMainPresenter;
 import com.zlzhang.stockanalysis.main.presenter.MainPresenterImp;
+import com.zlzhang.stockanalysis.modle.GlobalVariable;
 import com.zlzhang.stockanalysis.modle.StockType;
 import com.zlzhang.stockanalysis.upload.view.UploadActvity;
 
@@ -27,6 +29,8 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
     private Button mUploadButton;
     private Button mGotoSHButton;
     private Button mGotoSZButton;
+    private Button mConfirmIpButton;
+    private EditText mIpEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
         mGotoSZButton.setOnClickListener(this);
         mGotoSHButton.setOnClickListener(this);
         mUploadButton.setOnClickListener(this);
+        mConfirmIpButton.setOnClickListener(this);
     }
 
     private void initView() {
@@ -50,6 +55,8 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
         mGotoSHButton   = findViewById(R.id.gotoSH);
         mGotoSZButton   = findViewById(R.id.gotoSZ);
         mUploadButton = findViewById(R.id.upload_data);
+        mIpEditText = findViewById(R.id.ip_edittext);
+        mConfirmIpButton = findViewById(R.id.confirm_button);
     }
 
     private void initData() {
@@ -112,7 +119,9 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
             case R.id.upload_data:
                 gotoUploadData();
                 break;
-
+            case R.id.confirm_button:
+                GlobalVariable.sServerIp = mIpEditText.getText().toString();
+                break;
         }
     }
 

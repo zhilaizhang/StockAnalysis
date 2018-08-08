@@ -1,8 +1,12 @@
 package com.zlzhang.stockanalysis.upload.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.zlzhang.stockanalysis.R;
@@ -17,13 +21,21 @@ import java.util.List;
 
 public class UploadActvity extends Activity implements IUploadView{
 
+    private Context mContext;
     private IUploadPresenter mUploadPresenter;
+    private TextView mUploadStatusEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        mContext = this;
+        initView();
         initData();
+    }
+
+    private void initView() {
+        mUploadStatusEditText = findViewById(R.id.upload_status_textview);
     }
 
     private void initData() {
@@ -52,6 +64,12 @@ public class UploadActvity extends Activity implements IUploadView{
     public void uploadInfo(View view) {
         mUploadPresenter.uploadStockInfo();
 
+    }
+
+    @Override
+    public void uploadHint(String hint) {
+        Toast.makeText(mContext, hint, Toast.LENGTH_SHORT).show();
+        mUploadStatusEditText.setText(hint);
     }
 
 //    public void uploadData(View view) {

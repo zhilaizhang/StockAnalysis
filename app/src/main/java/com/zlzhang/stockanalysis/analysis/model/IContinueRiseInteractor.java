@@ -11,7 +11,7 @@ import java.util.List;
  * Created by zhangzhilai on 2018/3/6.
  */
 
-public interface IStockInteractor {
+public interface IContinueRiseInteractor {
 
     void getStockList(Context context, StockType type, final OnStockListener onStockListener);
 
