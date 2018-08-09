@@ -21,6 +21,13 @@ public class StockModel implements Serializable{
     private String date;          //日期
     private String time;          //时间
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
