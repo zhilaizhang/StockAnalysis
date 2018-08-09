@@ -1,21 +1,19 @@
-package com.zlzhang.stockanalysis.list.model;
-
-import android.content.Context;
-
-import com.zlzhang.stockanalysis.modle.StockModel;
-import com.zlzhang.stockanalysis.modle.StockType;
-
-import java.util.List;
+package com.zlzhang.stockanalysis.analysis.model;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
  */
 
-public interface ContinueRiseInteractorImp {
+public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
 
-    void getStockList(Context context, StockType type, final OnStockListener onStockListener);
 
-    interface OnStockListener{
-        void onStockGot(List<StockModel> stockModels);
+    @Override
+    public void getAllStocksByTime(String startTime, String endTime, OnStockListener onStockListener) {
+
+    }
+
+    @Override
+    public void getStocksByCodeAndTime(String code, String startTime, String endTime, OnStockListener onStockListener) {
+
     }
 }

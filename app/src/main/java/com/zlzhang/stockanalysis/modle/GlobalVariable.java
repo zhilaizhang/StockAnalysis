@@ -10,8 +10,7 @@ public class GlobalVariable {
 
     public static String sServerIp = "";
 
-    public static String BASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+    public static String BASE_PATH = Environment.getExternalStorageDirectory() + "/stock/";
 
-    public static String STOCK_PATH = BASE_PATH + "/" + "stock/";
 
 }

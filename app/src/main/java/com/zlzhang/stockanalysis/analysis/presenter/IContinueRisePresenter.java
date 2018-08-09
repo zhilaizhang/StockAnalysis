@@ -1,8 +1,4 @@
-package com.zlzhang.stockanalysis.list.presenter;
-
-import android.widget.ListView;
-
-import com.zlzhang.stockanalysis.modle.StockType;
+package com.zlzhang.stockanalysis.analysis.presenter;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
@@ -10,8 +6,6 @@ import com.zlzhang.stockanalysis.modle.StockType;
 
 public interface IContinueRisePresenter {
 
-    void setListView(ListView listView);
-
-    void setStockType(StockType stockType);
+    void getContinueRiseStocks(int days);
 
 }

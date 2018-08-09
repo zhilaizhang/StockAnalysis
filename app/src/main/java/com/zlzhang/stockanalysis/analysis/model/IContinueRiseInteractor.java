@@ -1,11 +1,9 @@
-package com.zlzhang.stockanalysis.list.model;
-
-import android.content.Context;
+package com.zlzhang.stockanalysis.analysis.model;
 
 import com.zlzhang.stockanalysis.modle.StockModel;
-import com.zlzhang.stockanalysis.modle.StockType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
@@ -13,9 +11,11 @@ import java.util.List;
 
 public interface IContinueRiseInteractor {
 
-    void getStockList(Context context, StockType type, final OnStockListener onStockListener);
+    void getAllStocksByTime(String startTime, String endTime, OnStockListener onStockListener);
+
+    void getStocksByCodeAndTime(String code, String startTime, String endTime, OnStockListener onStockListener);
 
     interface OnStockListener{
-        void onStockGot(List<StockModel> stockModels);
+        void onStocksGot(Map<String, List<StockModel>> stockModels);
     }
 }

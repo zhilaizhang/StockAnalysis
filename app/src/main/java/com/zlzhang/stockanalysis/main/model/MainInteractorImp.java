@@ -64,7 +64,7 @@ public class MainInteractorImp implements IMainInteractor {
         Gson gson = new Gson();
         String stockString = gson.toJson(stockModels);
         String date = new Date().toString();
-        String file = GlobalVariable.STOCK_PATH + date;
+        String file = GlobalVariable.BASE_PATH + date;
         writeToFile(file, stockString);
     }
 
