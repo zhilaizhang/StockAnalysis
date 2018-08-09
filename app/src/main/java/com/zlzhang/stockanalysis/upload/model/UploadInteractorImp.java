@@ -2,6 +2,8 @@ package com.zlzhang.stockanalysis.upload.model;
 
 import com.google.gson.Gson;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
+import com.zlzhang.stockanalysis.modle.GlobalVariable;
+import com.zlzhang.stockanalysis.modle.ResultData;
 import com.zlzhang.stockanalysis.modle.StockInfo;
 import com.zlzhang.stockanalysis.modle.StockModel;
 
@@ -16,14 +18,20 @@ public class UploadInteractorImp implements IUploadInteractor{
 
 
     @Override
-    public void uploadStocks(List<StockModel> stockModelList) {
-        Gson gson = new Gson();
+    public void uploadStocks(List<StockModel> stockModelList, final OnUploadListener onUploadListener) {
+        final Gson gson = new Gson();
         final String stocks = gson.toJson(stockModelList);
-        final String url = "http://192.168.1.100:8080/AddStockListAction";
+        final String url = "http://" + GlobalVariable.sServerIp + ":8080/AddStockListAction";
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockAnalysisUtil.postQuery(url, stocks);
+                String result = StockAnalysisUtil.postQuery(url, stocks);
+                ResultData resultData = gson.fromJson(result, ResultData.class);
+                if (resultData.getCode() == 0) {
+                    onUploadListener.onUploadSucceed();
+                } else {
+                    onUploadListener.onUploadFailed();
+                }
             }
         }).start();
 

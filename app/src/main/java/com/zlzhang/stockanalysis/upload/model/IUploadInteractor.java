@@ -10,9 +10,14 @@ import java.util.List;
 
 public interface IUploadInteractor {
 
-    void uploadStocks(List<StockModel> stockModelList);
+    void uploadStocks(List<StockModel> stockModelList, OnUploadListener onUploadListener);
 
     void uploadStock(StockModel stockModel);
 
     void uploadStockInfo(List<StockModel> stockModelList);
+
+    interface OnUploadListener{
+        void onUploadSucceed();
+        void onUploadFailed();
+    }
 }

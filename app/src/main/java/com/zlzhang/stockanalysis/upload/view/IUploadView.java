@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface IUploadView {
-
+    void uploadHint(String hint);
 }
