@@ -1,4 +1,4 @@
-package com.zlzhang.stockanalysis.analysis.model;
+package com.zlzhang.stockanalysis.analysis.rise.model;
 
 import com.zlzhang.stockanalysis.modle.StockModel;
 

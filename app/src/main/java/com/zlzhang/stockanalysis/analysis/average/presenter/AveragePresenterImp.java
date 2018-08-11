@@ -1,14 +1,19 @@
-package com.zlzhang.stockanalysis.analysis.presenter;
+package com.zlzhang.stockanalysis.analysis.average.presenter;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
 
-import com.zlzhang.stockanalysis.analysis.model.ContinueRiseInteractorImp;
-import com.zlzhang.stockanalysis.analysis.model.IContinueRiseInteractor;
-import com.zlzhang.stockanalysis.analysis.view.ContinueRiseAdapter;
-import com.zlzhang.stockanalysis.analysis.view.IContinueRiseView;
+import com.zlzhang.stockanalysis.analysis.average.model.AverageInteractorImp;
+import com.zlzhang.stockanalysis.analysis.average.model.IAverageInteractor;
+import com.zlzhang.stockanalysis.analysis.average.view.AverageAdapter;
+import com.zlzhang.stockanalysis.analysis.average.view.IAverageView;
+import com.zlzhang.stockanalysis.analysis.rise.model.ContinueRiseInteractorImp;
+import com.zlzhang.stockanalysis.analysis.rise.model.IContinueRiseInteractor;
+import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseAdapter;
+import com.zlzhang.stockanalysis.analysis.rise.view.IContinueRiseView;
+import com.zlzhang.stockanalysis.modle.AverageModel;
 import com.zlzhang.stockanalysis.modle.ContinueRiseModel;
 import com.zlzhang.stockanalysis.modle.StockModel;
 
@@ -23,26 +28,26 @@ import java.util.Map;
  * Created by zhangzhilai on 2018/3/6.
  */
 
-public class ContinueRisePresenterImp implements IContinueRisePresenter{
+public class AveragePresenterImp implements IAveragePresenter {
 
     private final int CONTINUE_RISE_GOT = 0x01;
 
-    private IContinueRiseView mContinueRiseView;
-    private IContinueRiseInteractor mContinueRiseInteractor;
-    private ListView mContinueRiseListView;
-    private ContinueRiseAdapter mContinueRiseAdapter;
+    private IAverageView mAverageView;
+    private IAverageInteractor mAverageInteractor;
+    private ListView mAverageListView;
+    private AverageAdapter mAverageAdapter;
     private Context mContext;
     private Handler mHandler;
 
-    private List<ContinueRiseModel> mContinueRiseModels;
+    private List<AverageModel> mContinueRiseModels;
 
-    public ContinueRisePresenterImp(IContinueRiseView continueRiseView, Context context){
-        mContinueRiseView = continueRiseView;
-        mContinueRiseInteractor = new ContinueRiseInteractorImp();
+    public AveragePresenterImp(IAverageView averageView, Context context){
+        mAverageView = averageView;
+        mAverageInteractor = new AverageInteractorImp();
         mContext = context;
-        mContinueRiseListView = mContinueRiseView.getContinueListView();
-        mContinueRiseAdapter = new ContinueRiseAdapter(mContext);
-        mContinueRiseListView.setAdapter(mContinueRiseAdapter);
+        mAverageListView = mAverageView.getAverageListView();
+        mAverageAdapter = new AverageAdapter(mContext);
+        mAverageListView.setAdapter(mAverageAdapter);
         initHandler();
     }
 
@@ -52,7 +57,7 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case  CONTINUE_RISE_GOT:
-                        mContinueRiseAdapter.setData(mContinueRiseModels);
+                        mAverageAdapter.setData(mContinueRiseModels);
                         break;
                 }
             }
@@ -61,7 +66,7 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
 
     @Override
     public void getContinueRiseStocks(int days) {
-        mContinueRiseInteractor.getAllStocksByTime("", "", new IContinueRiseInteractor.OnStockListener() {
+        mAverageInteractor.getAllStocksByTime("", "", new IAverageInteractor.OnStockListener() {
             @Override
             public void onStocksGot(Map<String, List<StockModel>> stockModels) {
                 calculateContinueRiseStock(stockModels);
@@ -76,19 +81,21 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
             Map.Entry entry = (Map.Entry) map1it.next();
             String code = (String) entry.getKey();
             List<StockModel> stockModels = (List<StockModel>) entry.getValue();
+            int days = stockModels.size();
             StockModel stockModel = stockModels.get(0);
             sortStocks(stockModels);
-            boolean isContinueRise = isContinueRise(stockModels);
-            if (isContinueRise) {
+            float averagePrice = getAverage(stockModels);
+            boolean isUpAverage = isUpAverage(stockModels.get(days - 1), averagePrice);
+            if (isUpAverage) {
               float riseRate =  getRiseRate(stockModels);
-              ContinueRiseModel continueRiseModel = new ContinueRiseModel();
-              continueRiseModel.setCode(code);
-              continueRiseModel.setContinueDays(stockModels.size());
-              continueRiseModel.setName(stockModel.getName());
-              continueRiseModel.setRiseRate(riseRate);
+                AverageModel averageModel = new AverageModel();
+                averageModel.setCode(code);
+                averageModel.setDays(stockModels.size());
+                averageModel.setName(stockModel.getName());
+                averageModel.setAveragePrice(averagePrice);
               List<Float> prices =  getContinueRisePrices(stockModels);
-              continueRiseModel.setPrices(prices);
-                mContinueRiseModels.add(continueRiseModel);
+                averageModel.setPrices(prices);
+                mContinueRiseModels.add(averageModel);
             }
         }
         if (mContinueRiseModels.size() > 0) {
@@ -118,21 +125,31 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
     }
 
     /**
-     * 判断在当前的天数内，是否为连涨
-     * @param stockModels
+     * 计算均线
      * @return
      */
-    private boolean isContinueRise(List<StockModel> stockModels){
-        float lastPrice = 0;
+    private float getAverage(List<StockModel> stockModels){
+        int size = stockModels.size();
+        float sum = 0;
         for (StockModel stockModel : stockModels) {
-            if (stockModel.getNowPrice() > lastPrice) {
-                lastPrice = stockModel.getNowPrice();
-            } else {
-                return false;
-            }
+            sum += stockModel.getNowPrice();
         }
-        return true;
+        return sum / size;
     }
+
+    /**
+     *  是否站上均线
+     * @param lastStockModel
+     * @param averagePrice
+     * @return
+     */
+    private boolean isUpAverage(StockModel lastStockModel, float averagePrice){
+        if (lastStockModel.getNowPrice() > averagePrice) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 计算涨幅

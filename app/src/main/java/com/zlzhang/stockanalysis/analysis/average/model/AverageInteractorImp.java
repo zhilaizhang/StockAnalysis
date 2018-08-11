@@ -1,10 +1,10 @@
-package com.zlzhang.stockanalysis.analysis.model;
+package com.zlzhang.stockanalysis.analysis.average.model;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
  */
 
-public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
+public class AverageInteractorImp implements IAverageInteractor {
 
 
     @Override
