@@ -1,4 +1,4 @@
-package com.zlzhang.stockanalysis.analysis.view;
+package com.zlzhang.stockanalysis.analysis.rise.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;

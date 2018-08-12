@@ -1,4 +1,4 @@
-package com.zlzhang.stockanalysis.analysis.presenter;
+package com.zlzhang.stockanalysis.analysis.rise.presenter;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
