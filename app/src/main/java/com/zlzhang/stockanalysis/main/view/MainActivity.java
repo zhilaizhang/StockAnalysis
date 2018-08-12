@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.zlzhang.stockanalysis.R;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
+import com.zlzhang.stockanalysis.analysis.average.view.AverageActivity;
+import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseActivity;
 import com.zlzhang.stockanalysis.list.view.StockListActivity;
 import com.zlzhang.stockanalysis.main.presenter.IMainPresenter;
 import com.zlzhang.stockanalysis.main.presenter.MainPresenterImp;
@@ -30,6 +32,8 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
     private Button mGotoSHButton;
     private Button mGotoSZButton;
     private Button mConfirmIpButton;
+    private Button mContinueRiseButton;
+    private Button mAverageButton;
     private EditText mIpEditText;
 
     @Override
@@ -45,18 +49,22 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
         mGotoSZButton.setOnClickListener(this);
         mGotoSHButton.setOnClickListener(this);
         mUploadButton.setOnClickListener(this);
+        mAverageButton.setOnClickListener(this);
+        mContinueRiseButton.setOnClickListener(this);
         mConfirmIpButton.setOnClickListener(this);
     }
 
     private void initView() {
-        mProgressLayout = findViewById(R.id.progress_layout);
-        mDataStatusTextView = findViewById(R.id.data_status);
-        mCountTextView = findViewById(R.id.count_textview);
-        mGotoSHButton   = findViewById(R.id.gotoSH);
-        mGotoSZButton   = findViewById(R.id.gotoSZ);
-        mUploadButton = findViewById(R.id.upload_data);
-        mIpEditText = findViewById(R.id.ip_edittext);
-        mConfirmIpButton = findViewById(R.id.confirm_button);
+        mProgressLayout = (LinearLayout) findViewById(R.id.progress_layout);
+        mDataStatusTextView = (TextView) findViewById(R.id.data_status);
+        mCountTextView = (TextView) findViewById(R.id.count_textview);
+        mGotoSHButton   = (Button) findViewById(R.id.gotoSH);
+        mGotoSZButton   = (Button) findViewById(R.id.gotoSZ);
+        mUploadButton = (Button) findViewById(R.id.upload_data);
+        mAverageButton = (Button) findViewById(R.id.gotoAverage);
+        mContinueRiseButton = (Button) findViewById(R.id.gotoContinueRise);
+        mIpEditText = (EditText) findViewById(R.id.ip_edittext);
+        mConfirmIpButton = (Button) findViewById(R.id.confirm_button);
     }
 
     private void initData() {
@@ -98,6 +106,8 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
             mGotoSHButton.setVisibility(View.VISIBLE);
             mGotoSZButton.setVisibility(View.VISIBLE);
             mUploadButton.setVisibility(View.VISIBLE);
+            mContinueRiseButton.setVisibility(View.VISIBLE);
+            mAverageButton.setVisibility(View.VISIBLE);
         }
         Toast.makeText(this,  "got" + isGot, Toast.LENGTH_SHORT).show();
     }
@@ -122,7 +132,25 @@ public class MainActivity extends Activity implements IMainView, View.OnClickLis
             case R.id.confirm_button:
                 GlobalVariable.sServerIp = mIpEditText.getText().toString();
                 break;
+            case R.id.gotoAverage:
+                gotoAverage();
+                break;
+            case R.id.gotoContinueRise:
+                gotoContinueRise();
+                break;
         }
+    }
+
+    private void gotoContinueRise() {
+        Intent intent = new Intent();
+        intent.setClass(this, ContinueRiseActivity.class);
+        startActivity(intent);
+    }
+
+    private void gotoAverage() {
+        Intent intent = new Intent();
+        intent.setClass(this, AverageActivity.class);
+        startActivity(intent);
     }
 
     public void gotoUploadData() {

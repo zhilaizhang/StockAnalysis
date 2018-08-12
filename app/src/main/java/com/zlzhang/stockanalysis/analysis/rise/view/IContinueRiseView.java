@@ -8,4 +8,6 @@ import android.widget.ListView;
 
 public interface IContinueRiseView {
      ListView getContinueListView();
+
+     ListView getDaysChooseListView();
 }

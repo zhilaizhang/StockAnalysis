@@ -13,7 +13,10 @@
             android:text="连涨天数"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <Spinner></Spinner>
+        <ListView
+            android:id="@+id/day_choose_listview"
+            android:layout_width="100dp"
+            android:layout_height="50dp"/>
         <Button
             android:id="@+id/confirm_days_button"
             android:layout_width="wrap_content"

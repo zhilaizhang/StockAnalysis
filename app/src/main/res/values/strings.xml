@@ -5,4 +5,6 @@
     <string name="upload_info">上传基本数据</string>
     <string name="sh">上证</string>
     <string name="sz">深证</string>
+    <string name="continue_rise">连涨</string>
+    <string name="average">均值</string>
 </resources>

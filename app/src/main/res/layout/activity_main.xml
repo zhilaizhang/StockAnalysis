@@ -59,6 +59,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/gotoContinueRise"
+        android:layout_below="@+id/gotoSZ"
+        android:visibility="gone"
+        android:text="@string/continue_rise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/gotoAverage"
+        android:layout_below="@+id/gotoContinueRise"
+        android:visibility="gone"
+        android:text="@string/average"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/data_status"
         android:layout_below="@+id/gotoSZ"

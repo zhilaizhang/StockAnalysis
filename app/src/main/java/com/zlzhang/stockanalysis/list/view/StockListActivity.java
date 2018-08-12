@@ -37,7 +37,7 @@ public class StockListActivity extends Activity implements IStockListView {
     }
 
     private void initView() {
-        mSHListView = findViewById(R.id.sh_listview);
+        mSHListView = (ListView) findViewById(R.id.sh_listview);
         mSHPresenter.setListView(mSHListView);
     }
 

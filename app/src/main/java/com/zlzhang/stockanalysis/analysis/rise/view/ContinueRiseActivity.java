@@ -15,6 +15,7 @@ import com.zlzhang.stockanalysis.analysis.rise.presenter.IContinueRisePresenter;
 public class ContinueRiseActivity extends Activity implements IContinueRiseView {
 
     private ListView mContinueListView;
+    private ListView mDaysChooseListView;
     private IContinueRisePresenter mContinueRisePresenter;
 
     @Override
@@ -27,6 +28,7 @@ public class ContinueRiseActivity extends Activity implements IContinueRiseView 
 
     private void initView() {
         mContinueListView = (ListView) findViewById(R.id.continue_rise_listview);
+        mDaysChooseListView = (ListView) findViewById(R.id.day_choose_listview);
     }
 
     @Override
@@ -47,5 +49,10 @@ public class ContinueRiseActivity extends Activity implements IContinueRiseView 
     @Override
     public ListView getContinueListView() {
         return mContinueListView;
+    }
+
+    @Override
+    public ListView getDaysChooseListView() {
+        return mDaysChooseListView;
     }
 }

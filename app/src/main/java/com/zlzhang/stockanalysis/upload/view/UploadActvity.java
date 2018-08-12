@@ -35,7 +35,7 @@ public class UploadActvity extends Activity implements IUploadView{
     }
 
     private void initView() {
-        mUploadStatusEditText = findViewById(R.id.upload_status_textview);
+        mUploadStatusEditText = (TextView) findViewById(R.id.upload_status_textview);
     }
 
     private void initData() {

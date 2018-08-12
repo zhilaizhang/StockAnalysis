@@ -3,17 +3,15 @@ package com.zlzhang.stockanalysis.main.model;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.modle.GlobalVariable;
 import com.zlzhang.stockanalysis.modle.StockDataCache;
 import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.util.FileUtil;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -23,17 +21,19 @@ import java.util.List;
 public class MainInteractorImp implements IMainInteractor {
 
     private Context mContext;
+    private Gson mGson;
     private int mCount;
     private OnGetDataListener mOnGetDataListener;
 
     public MainInteractorImp(Context context){
         mContext = context;
+        mGson = new Gson();
     }
 
     @Override
     public void getAllStocks(final OnGetDataListener onGetDataListener) {
         mOnGetDataListener = onGetDataListener;
-        String sh = StockAnalysisUtil.readAssetsTxt(mContext, "sh");
+        final String sh = StockAnalysisUtil.readAssetsTxt(mContext, "sh");
         final String[] shStockNames = sh.split(",");
 
         String sz = StockAnalysisUtil.readAssetsTxt(mContext, "sz");
@@ -43,16 +43,34 @@ public class MainInteractorImp implements IMainInteractor {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<StockModel> shStocks = getStockModels("sh", shStockNames);
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH)+1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                String ds = year + "_" + month + "_" + day;
+                String shFile = GlobalVariable.BASE_PATH +  ds + "_sh.txt";
+                List<StockModel> shStocks;
+                if (FileUtil.isFileExist(shFile)) {
+                    shStocks = getStockModelsFromLocal(shFile);
+                } else {
+                    shStocks = getStockModelsFromNet("sh", shStockNames);
+                    storeStocksToLocal(shFile, shStocks);
+                }
                 StockDataCache.getInstance().setmSHStockModelList(shStocks);
 
-                List<StockModel> szStocks = getStockModels("sz", szStockNames);
+                List<StockModel> szStocks;
+                String szFile = GlobalVariable.BASE_PATH +  ds + "_sz.txt";
+                if (FileUtil.isFileExist(szFile)) {
+                    szStocks = getStockModelsFromLocal(szFile);
+                } else {
+                    szStocks = getStockModelsFromNet("sz", szStockNames);
+                    storeStocksToLocal(szFile, szStocks);
+                }
                 StockDataCache.getInstance().setmSZStockModelList(szStocks);
 
                 List<StockModel> allStocks = new ArrayList<>();
                 allStocks.addAll(shStocks);
                 allStocks.addAll(szStocks);
-                storeAllStocks(allStocks);
                 onGetDataListener.onGetSucceed(allStocks);
 
             }
@@ -60,30 +78,12 @@ public class MainInteractorImp implements IMainInteractor {
 
     }
 
-    private void storeAllStocks(List<StockModel> stockModels){
+    private void storeStocksToLocal(String fileName, List<StockModel> stockModels){
         Gson gson = new Gson();
         String stockString = gson.toJson(stockModels);
-        String date = new Date().toString();
-        String file = GlobalVariable.BASE_PATH + date;
-        writeToFile(file, stockString);
+        FileUtil.setRawDataToFile(fileName, stockString);
     }
 
-    public  void writeToFile(String file, String conent) {
-        BufferedWriter out = null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file, true)));
-            out.write(conent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void uploadStocks(List<StockModel> stockModels, OnUploadListener onUploadListener) {
@@ -95,7 +95,7 @@ public class MainInteractorImp implements IMainInteractor {
         }).start();
     }
 
-    private List<StockModel> getStockModels(String position, String[] stocks){
+    private List<StockModel> getStockModelsFromNet(String position, String[] stocks){
         List<StockModel> stockModelList = new ArrayList<>();
         for (String shStock : stocks) {
             String url = "http://hq.sinajs.cn/list=" + position + shStock;
@@ -111,5 +111,11 @@ public class MainInteractorImp implements IMainInteractor {
             }
         }
         return stockModelList;
+    }
+
+    private List<StockModel> getStockModelsFromLocal(String path){
+        String stocksFile = FileUtil.getAllFile(path);
+        List<StockModel> stockModels = mGson.fromJson(stocksFile, new TypeToken<List<StockModel>>(){}.getType());
+        return stockModels;
     }
 }

@@ -85,9 +85,9 @@ public class StockAnalysisUtil {
 
             connection.setRequestMethod("GET");//设置请求方式//必须是大写
 
-            connection.setConnectTimeout(5000);//设置连接超时时间。
+            connection.setConnectTimeout(50000);//设置连接超时时间。
 
-            connection.setReadTimeout(5000);//设置读数据的超时时间
+            connection.setReadTimeout(50000);//设置读数据的超时时间
 
             // Post 请求不能使用缓存
 
