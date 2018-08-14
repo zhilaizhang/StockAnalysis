@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.analysis.rise.model.ContinueRiseInteractorImp;
 import com.zlzhang.stockanalysis.analysis.rise.model.IContinueRiseInteractor;
 import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseAdapter;
@@ -123,6 +124,7 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
             }
         }
         if (mContinueRiseModels.size() > 0) {
+            sortStocksByRiseRate(mContinueRiseModels);
             Message message = new Message();
             message.what = CONTINUE_RISE_GOT;
             mHandler.sendMessage(message);
@@ -141,6 +143,24 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
                 if (stockModel.getId() > t1.getId()) {
                     return 1;
                 } else if(stockModel.getId() < t1.getId()){
+                    return -1;
+                }
+                return 0;
+            }
+        });
+    }
+
+    /**
+     * 对当前天数内股票进行时间排序
+     * @param stockModels
+     */
+    private void sortStocksByRiseRate(List<ContinueRiseModel> stockModels){
+        Collections.sort(stockModels, new Comparator<ContinueRiseModel>() {
+            @Override
+            public int compare(ContinueRiseModel stockModel, ContinueRiseModel t1) {
+                if (stockModel.getRiseRate() < t1.getRiseRate()) {
+                    return 1;
+                } else if(stockModel.getRiseRate() > t1.getRiseRate()){
                     return -1;
                 }
                 return 0;
@@ -172,10 +192,11 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
      */
     private float getRiseRate(List<StockModel> stockModels){
         int length = stockModels.size();
-        float startPrice = stockModels.get(0).getTodayOpen();
+        float startPrice = stockModels.get(0).getYesterdayClose();
         float endPrice = stockModels.get(length -1).getNowPrice();
         float riseRate = (endPrice - startPrice) / startPrice * 100;
-        return riseRate;
+        int rise = (int) (riseRate * 100);
+        return (float) (rise * 1.0 / 100);
     }
 
     /**

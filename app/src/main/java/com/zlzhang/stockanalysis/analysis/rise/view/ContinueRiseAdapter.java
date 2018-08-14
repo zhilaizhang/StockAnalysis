@@ -27,6 +27,7 @@ public class ContinueRiseAdapter extends BaseAdapter {
 
     public void setData(List<ContinueRiseModel> continueRiseModelList){
         mContinueRiseModels = continueRiseModelList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -75,7 +76,7 @@ public class ContinueRiseAdapter extends BaseAdapter {
         }
         holder.pricesTextView.setText(priceString);
         holder.riseDaysTextView.setText(continueRiseModel.getContinueDays() + "");
-        holder.riseRateTextView.setText(continueRiseModel.getRiseRate() + "");
+        holder.riseRateTextView.setText(continueRiseModel.getRiseRate() + "%");
         return convertView;
     }
 
