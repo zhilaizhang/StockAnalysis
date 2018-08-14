@@ -1,6 +1,7 @@
 package com.zlzhang.stockanalysis.analysis.rise.model;
 
-import com.zlzhang.stockanalysis.modle.StockModel;
+
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.List;
 import java.util.Map;

@@ -8,8 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zlzhang.stockanalysis.R;
-import com.zlzhang.stockanalysis.modle.AverageModel;
-import com.zlzhang.stockanalysis.modle.ContinueRiseModel;
+import com.zlzhang.stockmodel.AverageModel;
 
 import java.util.List;
 

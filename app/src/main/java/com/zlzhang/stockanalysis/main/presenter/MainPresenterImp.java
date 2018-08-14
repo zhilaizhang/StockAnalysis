@@ -7,7 +7,7 @@ import android.os.Message;
 import com.zlzhang.stockanalysis.main.model.IMainInteractor;
 import com.zlzhang.stockanalysis.main.model.MainInteractorImp;
 import com.zlzhang.stockanalysis.main.view.IMainView;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.List;
 

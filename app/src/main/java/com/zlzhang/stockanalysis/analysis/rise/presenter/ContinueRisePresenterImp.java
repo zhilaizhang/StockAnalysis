@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.analysis.rise.model.ContinueRiseInteractorImp;
 import com.zlzhang.stockanalysis.analysis.rise.model.IContinueRiseInteractor;
 import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseAdapter;
 import com.zlzhang.stockanalysis.analysis.rise.view.DayChooseAdapter;
 import com.zlzhang.stockanalysis.analysis.rise.view.IContinueRiseView;
-import com.zlzhang.stockanalysis.modle.ContinueRiseModel;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.ContinueRiseModel;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

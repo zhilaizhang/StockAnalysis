@@ -2,10 +2,10 @@ package com.zlzhang.stockanalysis.upload.model;
 
 import com.google.gson.Gson;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
-import com.zlzhang.stockanalysis.modle.GlobalVariable;
-import com.zlzhang.stockanalysis.modle.ResultData;
-import com.zlzhang.stockanalysis.modle.StockInfo;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.GlobalVariable;
+import com.zlzhang.stockmodel.ResultData;
+import com.zlzhang.stockmodel.StockInfo;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.ArrayList;
 import java.util.List;

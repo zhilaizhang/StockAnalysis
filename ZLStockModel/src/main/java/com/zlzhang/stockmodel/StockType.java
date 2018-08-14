@@ -1,4 +1,4 @@
-package com.zlzhang.stockanalysis.modle;
+package com.zlzhang.stockmodel;
 
 /**
  * Created by zhangzhilai on 2018/3/6.

@@ -2,7 +2,8 @@ package com.zlzhang.stockanalysis.list.presenter;
 
 import android.widget.ListView;
 
-import com.zlzhang.stockanalysis.modle.StockType;
+import com.zlzhang.stockmodel.StockType;
+
 
 /**
  * Created by zhangzhilai on 2018/3/6.

@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.zlzhang.stockanalysis.StockAnalysisUtil;
-import com.zlzhang.stockanalysis.modle.StockDataCache;
-import com.zlzhang.stockanalysis.modle.StockModel;
+
 import com.zlzhang.stockanalysis.upload.model.IUploadInteractor;
 import com.zlzhang.stockanalysis.upload.model.UploadInteractorImp;
 import com.zlzhang.stockanalysis.upload.view.IUploadView;
+import com.zlzhang.stockmodel.StockDataCache;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.List;
 

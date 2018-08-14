@@ -1,4 +1,4 @@
-package com.zlzhang.stockanalysis.modle;
+package com.zlzhang.stockmodel;
 
 import java.util.List;
 import java.util.Map;

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zlzhang.stockanalysis.R;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.List;
 

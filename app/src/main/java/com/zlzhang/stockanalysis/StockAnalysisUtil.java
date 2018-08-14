@@ -2,7 +2,8 @@ package com.zlzhang.stockanalysis;
 
 import android.content.Context;
 
-import com.zlzhang.stockanalysis.modle.StockModel;
+
+import com.zlzhang.stockmodel.StockModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;

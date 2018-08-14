@@ -17,9 +17,9 @@ import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseActivity;
 import com.zlzhang.stockanalysis.list.view.StockListActivity;
 import com.zlzhang.stockanalysis.main.presenter.IMainPresenter;
 import com.zlzhang.stockanalysis.main.presenter.MainPresenterImp;
-import com.zlzhang.stockanalysis.modle.GlobalVariable;
-import com.zlzhang.stockanalysis.modle.StockType;
 import com.zlzhang.stockanalysis.upload.view.UploadActvity;
+import com.zlzhang.stockmodel.GlobalVariable;
+import com.zlzhang.stockmodel.StockType;
 
 public class MainActivity extends Activity implements IMainView, View.OnClickListener{
 

@@ -1,18 +1,11 @@
 package com.zlzhang.stockanalysis.analysis.rise.model;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.zlzhang.client.base.Action;
 import com.zlzhang.client.handler.ActionHandler;
-import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.client.GetAllStocksAction;
-import com.zlzhang.stockanalysis.modle.GlobalVariable;
-import com.zlzhang.stockanalysis.modle.ResultData;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.ResultData;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhangzhilai on 2018/3/6.

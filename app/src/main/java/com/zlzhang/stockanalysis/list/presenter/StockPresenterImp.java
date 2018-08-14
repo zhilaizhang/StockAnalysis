@@ -8,9 +8,9 @@ import com.zlzhang.stockanalysis.list.model.IStockInteractor;
 import com.zlzhang.stockanalysis.list.model.StockInteractorImp;
 import com.zlzhang.stockanalysis.list.model.StockListAdapter;
 import com.zlzhang.stockanalysis.list.view.IStockListView;
-import com.zlzhang.stockanalysis.modle.StockDataCache;
-import com.zlzhang.stockanalysis.modle.StockModel;
-import com.zlzhang.stockanalysis.modle.StockType;
+import com.zlzhang.stockmodel.StockDataCache;
+import com.zlzhang.stockmodel.StockModel;
+import com.zlzhang.stockmodel.StockType;
 
 import java.util.List;
 /**

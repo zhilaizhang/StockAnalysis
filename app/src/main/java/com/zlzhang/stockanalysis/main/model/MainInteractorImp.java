@@ -5,9 +5,9 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
-import com.zlzhang.stockanalysis.modle.GlobalVariable;
-import com.zlzhang.stockanalysis.modle.StockDataCache;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.GlobalVariable;
+import com.zlzhang.stockmodel.StockDataCache;
+import com.zlzhang.stockmodel.StockModel;
 import com.zlzhang.util.FileUtil;
 
 import java.util.ArrayList;

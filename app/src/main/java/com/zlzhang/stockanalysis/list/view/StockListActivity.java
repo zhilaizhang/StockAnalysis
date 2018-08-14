@@ -9,7 +9,7 @@ import com.zlzhang.stockanalysis.R;
 import com.zlzhang.stockanalysis.StockAnalysisUtil;
 import com.zlzhang.stockanalysis.list.presenter.IStockPresenter;
 import com.zlzhang.stockanalysis.list.presenter.StockPresenterImp;
-import com.zlzhang.stockanalysis.modle.StockType;
+import com.zlzhang.stockmodel.StockType;
 
 
 /**

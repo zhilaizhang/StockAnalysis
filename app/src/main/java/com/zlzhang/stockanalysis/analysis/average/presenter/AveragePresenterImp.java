@@ -9,13 +9,8 @@ import com.zlzhang.stockanalysis.analysis.average.model.AverageInteractorImp;
 import com.zlzhang.stockanalysis.analysis.average.model.IAverageInteractor;
 import com.zlzhang.stockanalysis.analysis.average.view.AverageAdapter;
 import com.zlzhang.stockanalysis.analysis.average.view.IAverageView;
-import com.zlzhang.stockanalysis.analysis.rise.model.ContinueRiseInteractorImp;
-import com.zlzhang.stockanalysis.analysis.rise.model.IContinueRiseInteractor;
-import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseAdapter;
-import com.zlzhang.stockanalysis.analysis.rise.view.IContinueRiseView;
-import com.zlzhang.stockanalysis.modle.AverageModel;
-import com.zlzhang.stockanalysis.modle.ContinueRiseModel;
-import com.zlzhang.stockanalysis.modle.StockModel;
+import com.zlzhang.stockmodel.AverageModel;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

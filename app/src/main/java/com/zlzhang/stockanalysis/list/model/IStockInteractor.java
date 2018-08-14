@@ -2,8 +2,9 @@ package com.zlzhang.stockanalysis.list.model;
 
 import android.content.Context;
 
-import com.zlzhang.stockanalysis.modle.StockModel;
-import com.zlzhang.stockanalysis.modle.StockType;
+
+import com.zlzhang.stockmodel.StockModel;
+import com.zlzhang.stockmodel.StockType;
 
 import java.util.List;
 
