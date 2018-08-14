@@ -1,6 +1,7 @@
 package com.zlzhang.stockanalysis.analysis.rise.model;
 
 
+import com.zlzhang.stockmodel.ContinueRiseModel;
 import com.zlzhang.stockmodel.StockModel;
 
 import java.util.List;
@@ -12,11 +13,11 @@ import java.util.Map;
 
 public interface IContinueRiseInteractor {
 
-    void getAllStocksByTime(String startTime, String endTime, OnStockListener onStockListener);
+    void getAllStocksByTime(int days, OnStockListener onStockListener);
 
     void getStocksByCodeAndTime(String code, String startTime, String endTime, OnStockListener onStockListener);
 
     interface OnStockListener{
-        void onStocksGot(Map<String, List<StockModel>> stockModels);
+        void onStocksGot(List<ContinueRiseModel> stockModels);
     }
 }

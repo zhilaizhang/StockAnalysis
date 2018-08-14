@@ -1,11 +1,16 @@
 package com.zlzhang.stockanalysis.analysis.rise.model;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zlzhang.client.handler.ActionHandler;
 import com.zlzhang.stockanalysis.client.GetAllStocksAction;
+import com.zlzhang.stockanalysis.client.GetContinueRiseStocksAction;
+import com.zlzhang.stockmodel.ContinueRiseModel;
 import com.zlzhang.stockmodel.ResultData;
+import com.zlzhang.stockmodel.StockModel;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
@@ -20,10 +25,10 @@ public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
     }
 
     @Override
-    public void getAllStocksByTime(final String startTime, final String endTime, final OnStockListener onStockListener) {
+    public void getAllStocksByTime(int days, final OnStockListener onStockListener) {
 //        Action.BASE_URL = "http://192.168.1.101:8080";
-        String url = "http://192.168.1.101:8080/GetAllStocksAction";
-        GetAllStocksAction getAllStocksAction = new GetAllStocksAction(url, startTime, endTime);
+        String url = "http://192.168.1.104:8080/GetContinueRiseStocksAction";
+        GetContinueRiseStocksAction getAllStocksAction = new GetContinueRiseStocksAction(url, days);
         getAllStocksAction.execute(true, new ActionHandler() {
             @Override
             public void doActionStart() {
@@ -41,7 +46,9 @@ public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
                     String stocks = serializable.toString();
                     ResultData resultData = mGson.fromJson(stocks, ResultData.class);
                     if (resultData != null && resultData.getCode() == 0) {
-                        onStockListener.onStocksGot(resultData.getResult());
+                        String result = resultData.getResult();
+                        List<ContinueRiseModel> continueRiseModelList = mGson.fromJson(result, new TypeToken<List<ContinueRiseModel>>(){}.getType());
+                        onStockListener.onStocksGot(continueRiseModelList);
                     }
 
                 }
@@ -53,16 +60,6 @@ public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
 
             }
         });
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String url = "http://" + GlobalVariable.sServerIp + ":8080/GetAllStocksAction";
-//                String params = "startTime=" + startTime + "&endTime=" + endTime;
-//                String stocks = StockAnalysisUtil.getHttpURLConnection(url, params);
-//                Map<String, List<StockModel>> stockMap = mGson.fromJson(stocks, new TypeToken<Map<String,List<StockModel>>>(){}.getType());
-//                onStockListener.onStocksGot(stockMap);
-//            }
-//        }).start();
 
     }
 

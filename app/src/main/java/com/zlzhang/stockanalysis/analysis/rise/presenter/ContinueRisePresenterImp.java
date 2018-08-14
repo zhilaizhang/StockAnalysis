@@ -90,64 +90,20 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
 
     @Override
     public void getContinueRiseStocks(int days) {
-        String startTime = "2018-07-01";
-        String endTime = "2018-08-14";
-        mContinueRiseInteractor.getAllStocksByTime(startTime, endTime, new IContinueRiseInteractor.OnStockListener() {
+        mContinueRiseInteractor.getAllStocksByTime(days, new IContinueRiseInteractor.OnStockListener() {
             @Override
-            public void onStocksGot(Map<String, List<StockModel>> stockModels) {
-                calculateContinueRiseStock(stockModels);
-            }
-        });
-    }
-
-    private void calculateContinueRiseStock(Map<String, List<StockModel>> stockModelMap) {
-        Iterator map1it = stockModelMap.entrySet().iterator();
-        mContinueRiseModels = new ArrayList<>();
-        while (map1it.hasNext()){
-            Map.Entry entry = (Map.Entry) map1it.next();
-            String code = (String) entry.getKey();
-            List<StockModel> stockModels = (List<StockModel>) entry.getValue();
-            StockModel stockModel = stockModels.get(0);
-            sortStocks(stockModels);
-            boolean isContinueRise = isContinueRise(stockModels);
-            if (isContinueRise) {
-              float riseRate =  getRiseRate(stockModels);
-              ContinueRiseModel continueRiseModel = new ContinueRiseModel();
-              continueRiseModel.setCode(code);
-              continueRiseModel.setContinueDays(stockModels.size());
-              continueRiseModel.setName(stockModel.getName());
-              continueRiseModel.setRiseRate(riseRate);
-              List<Float> prices =  getContinueRisePrices(stockModels);
-              continueRiseModel.setPrices(prices);
-                mContinueRiseModels.add(continueRiseModel);
-            }
-        }
-        if (mContinueRiseModels.size() > 0) {
-            sortStocksByRiseRate(mContinueRiseModels);
-            Message message = new Message();
-            message.what = CONTINUE_RISE_GOT;
-            mHandler.sendMessage(message);
-        }
-    }
-
-
-    /**
-     * 对当前天数内股票进行时间排序
-     * @param stockModels
-     */
-    private void sortStocks(List<StockModel> stockModels){
-        Collections.sort(stockModels, new Comparator<StockModel>() {
-            @Override
-            public int compare(StockModel stockModel, StockModel t1) {
-                if (stockModel.getId() > t1.getId()) {
-                    return 1;
-                } else if(stockModel.getId() < t1.getId()){
-                    return -1;
+            public void onStocksGot(List<ContinueRiseModel> stockModels) {
+                if (stockModels.size() > 0) {
+                    mContinueRiseModels = stockModels;
+                    sortStocksByRiseRate(mContinueRiseModels);
+                    Message message = new Message();
+                    message.what = CONTINUE_RISE_GOT;
+                    mHandler.sendMessage(message);
                 }
-                return 0;
             }
         });
     }
+
 
     /**
      * 对当前天数内股票进行时间排序
@@ -165,50 +121,6 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
                 return 0;
             }
         });
-    }
-
-    /**
-     * 判断在当前的天数内，是否为连涨
-     * @param stockModels
-     * @return
-     */
-    private boolean isContinueRise(List<StockModel> stockModels){
-        float lastPrice = 0;
-        for (StockModel stockModel : stockModels) {
-            if (stockModel.getNowPrice() > lastPrice) {
-                lastPrice = stockModel.getNowPrice();
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 计算涨幅
-     * @param stockModels
-     * @return
-     */
-    private float getRiseRate(List<StockModel> stockModels){
-        int length = stockModels.size();
-        float startPrice = stockModels.get(0).getYesterdayClose();
-        float endPrice = stockModels.get(length -1).getNowPrice();
-        float riseRate = (endPrice - startPrice) / startPrice * 100;
-        int rise = (int) (riseRate * 100);
-        return (float) (rise * 1.0 / 100);
-    }
-
-    /**
-     * 获取连涨天数内每天的收盘价
-     * @param stockModels
-     * @return
-     */
-    private List<Float> getContinueRisePrices(List<StockModel> stockModels){
-        List<Float> prices = new ArrayList<>();
-        for (StockModel stockModel : stockModels) {
-            prices.add(stockModel.getNowPrice());
-        }
-        return prices;
     }
 
 }
