@@ -6,6 +6,7 @@ import com.zlzhang.client.handler.ActionHandler;
 import com.zlzhang.stockanalysis.client.GetAllStocksAction;
 import com.zlzhang.stockanalysis.client.GetContinueRiseStocksAction;
 import com.zlzhang.stockmodel.ContinueRiseModel;
+import com.zlzhang.stockmodel.GlobalVariable;
 import com.zlzhang.stockmodel.ResultData;
 import com.zlzhang.stockmodel.StockModel;
 
@@ -27,7 +28,8 @@ public class ContinueRiseInteractorImp implements IContinueRiseInteractor{
     @Override
     public void getAllStocksByTime(int days, final OnStockListener onStockListener) {
 //        Action.BASE_URL = "http://192.168.1.101:8080";
-        String url = "http://192.168.1.104:8080/GetContinueRiseStocksAction";
+
+        String url = "http://" + GlobalVariable.sServerIp + ":8080/GetContinueRiseStocksAction";
         GetContinueRiseStocksAction getAllStocksAction = new GetContinueRiseStocksAction(url, days);
         getAllStocksAction.execute(true, new ActionHandler() {
             @Override
