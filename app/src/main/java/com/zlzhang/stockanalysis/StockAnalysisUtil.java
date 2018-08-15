@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by zhangzhilai on 2018/3/2.
@@ -182,6 +185,27 @@ public class StockAnalysisUtil {
     public static double getStockRiseRate(double nowPrice, double yesterdayPrice){
         double riseRate =  (yesterdayPrice - nowPrice) / yesterdayPrice;
         return riseRate;
+    }
+
+    public Date getDate(Date currentDate, int days){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        int i=0;
+        while(i<days){
+            calendar.add(Calendar.DATE,1);
+            i++;
+            if(calendar.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY ||
+                    calendar.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
+                i--;
+            }
+        }
+        return calendar.getTime();
+    }
+
+    public String getCurrentDate(){
+        Date date = new Date();
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfd.format(date);
     }
 
 }
