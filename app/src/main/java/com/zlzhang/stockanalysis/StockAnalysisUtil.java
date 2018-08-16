@@ -4,6 +4,7 @@ import android.content.Context;
 
 
 import com.zlzhang.stockmodel.StockModel;
+import com.zlzhang.stockmodel.StockType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -206,6 +207,43 @@ public class StockAnalysisUtil {
         Date date = new Date();
         SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
         return sdfd.format(date);
+    }
+
+
+    /**
+     * 判断深证或者上证
+     * @param code
+     * @return
+     */
+    public StockType judgeExchange(String code){
+        String startCode = code.substring(0, 2);
+        if (startCode.equals("60")) {
+            return StockType.SH;
+        } else {
+            return StockType.SZ;
+        }
+    }
+
+    /**
+     * 判断中小，创
+     * @param code
+     * @return
+     */
+    public StockType judgeDetailExchange(String code){
+        String startCode = code.substring(0, 2);
+        if (startCode.equals("60")) {
+            return StockType.SH;
+        } else {
+            startCode = code.substring(0, 3);
+            if (startCode.equals("000")) {
+                return StockType.SZ000;
+            } else if(startCode.equals("002")){
+                return StockType.SZ000;
+            } else if(startCode.equals("300")){
+                return StockType.SZ300;
+            }
+            return StockType.SZ;
+        }
     }
 
 }
