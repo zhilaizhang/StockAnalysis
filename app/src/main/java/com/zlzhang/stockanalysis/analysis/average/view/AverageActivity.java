@@ -7,6 +7,7 @@ import android.widget.ListView;
 import com.zlzhang.stockanalysis.R;
 import com.zlzhang.stockanalysis.analysis.average.presenter.AveragePresenterImp;
 import com.zlzhang.stockanalysis.analysis.average.presenter.IAveragePresenter;
+import com.zlzhang.stockanalysis.views.ChooseDayView;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
@@ -14,19 +15,21 @@ import com.zlzhang.stockanalysis.analysis.average.presenter.IAveragePresenter;
 
 public class AverageActivity extends Activity implements IAverageView {
 
-    private ListView mContinueListView;
+    private ListView mAverageListView;
+    private ChooseDayView mChooseDayView;
     private IAveragePresenter mAveragePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_continue_rise);
+        setContentView(R.layout.activity_average);
         initView();
         mAveragePresenter = new AveragePresenterImp(this, this);
     }
 
     private void initView() {
-        mContinueListView = (ListView) findViewById(R.id.continue_rise_listview);
+        mAverageListView = (ListView) findViewById(R.id.average_listview);
+        mChooseDayView = (ChooseDayView) findViewById(R.id.choose_day_view);
     }
 
     @Override
@@ -46,6 +49,11 @@ public class AverageActivity extends Activity implements IAverageView {
 
     @Override
     public ListView getAverageListView() {
-        return mContinueListView;
+        return mAverageListView;
+    }
+
+    @Override
+    public ChooseDayView getChooseDayView() {
+        return mChooseDayView;
     }
 }

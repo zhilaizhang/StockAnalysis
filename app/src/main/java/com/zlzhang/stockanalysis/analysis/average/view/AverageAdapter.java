@@ -27,6 +27,7 @@ public class AverageAdapter extends BaseAdapter {
 
     public void setData(List<AverageModel> continueRiseModelList){
         mAverageModels = continueRiseModelList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -55,12 +56,12 @@ public class AverageAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_continue_rise, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_average, null);
             holder.codeTextView= (TextView) convertView.findViewById(R.id.code_textview);
             holder.nameTextView = (TextView) convertView.findViewById(R.id.name_textview);
             holder.pricesTextView = (TextView) convertView.findViewById(R.id.prices_textview);
             holder.riseDaysTextView = (TextView) convertView.findViewById(R.id.rise_days_textview);
-            holder.riseRateTextView = (TextView) convertView.findViewById(R.id.rise_rate_textview);
+            holder.averageTextView = (TextView) convertView.findViewById(R.id.average_textview);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -71,11 +72,11 @@ public class AverageAdapter extends BaseAdapter {
         List<Float> prices = averageModel.getPrices();
         String priceString = "";
         for (Float price : prices) {
-            priceString = price + ",";
+            priceString += price + ",";
         }
         holder.pricesTextView.setText(priceString);
         holder.riseDaysTextView.setText(averageModel.getDays() + "");
-        holder.riseRateTextView.setText(averageModel.getAveragePrice() + "");
+        holder.averageTextView.setText(averageModel.getAveragePrice() + "");
         return convertView;
     }
 
@@ -84,6 +85,6 @@ public class AverageAdapter extends BaseAdapter {
         TextView nameTextView;
         TextView pricesTextView;
         TextView riseDaysTextView;
-        TextView riseRateTextView;
+        TextView averageTextView;
     }
 }

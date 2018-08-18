@@ -12,15 +12,12 @@ import com.zlzhang.stockanalysis.analysis.rise.model.IContinueRiseInteractor;
 import com.zlzhang.stockanalysis.analysis.rise.view.ContinueRiseAdapter;
 import com.zlzhang.stockanalysis.analysis.rise.view.DayChooseAdapter;
 import com.zlzhang.stockanalysis.analysis.rise.view.IContinueRiseView;
+import com.zlzhang.stockanalysis.views.ChooseDayView;
 import com.zlzhang.stockmodel.ContinueRiseModel;
-import com.zlzhang.stockmodel.StockModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhangzhilai on 2018/3/6.
@@ -33,9 +30,10 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
     private IContinueRiseView mContinueRiseView;
     private IContinueRiseInteractor mContinueRiseInteractor;
     private ListView mContinueRiseListView;
-    private ListView mDayChooseListView;
     private ContinueRiseAdapter mContinueRiseAdapter;
-    private DayChooseAdapter mDayChooseAdapter;
+
+    private ChooseDayView mChooseDayView;
+
     private Context mContext;
     private Handler mHandler;
 
@@ -46,13 +44,11 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
         mContinueRiseInteractor = new ContinueRiseInteractorImp();
         mContext = context;
         mContinueRiseListView = mContinueRiseView.getContinueListView();
-        mDayChooseListView = mContinueRiseView.getDaysChooseListView();
+        mChooseDayView = mContinueRiseView.getChooseDayView();
 
         mContinueRiseAdapter = new ContinueRiseAdapter(mContext);
         mContinueRiseListView.setAdapter(mContinueRiseAdapter);
 
-        mDayChooseAdapter = new DayChooseAdapter(mContext);
-        mDayChooseListView.setAdapter(mDayChooseAdapter);
 
         initListener();
 
@@ -67,12 +63,13 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
             }
         });
 
-        mDayChooseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mChooseDayView.setOnChooseDayViewListener(new ChooseDayView.OnChooseDayViewListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                getContinueRiseStocks(i + 1);
+            public void onDayChoose(int day) {
+                getContinueRiseStocks(day);
             }
         });
+
     }
 
     private void initHandler() {
@@ -93,7 +90,7 @@ public class ContinueRisePresenterImp implements IContinueRisePresenter{
         mContinueRiseInteractor.getAllStocksByTime(days, new IContinueRiseInteractor.OnStockListener() {
             @Override
             public void onStocksGot(List<ContinueRiseModel> stockModels) {
-                if (stockModels.size() > 0) {
+                if (stockModels != null && stockModels.size() > 0) {
                     mContinueRiseModels = stockModels;
                     sortStocksByRiseRate(mContinueRiseModels);
                     Message message = new Message();

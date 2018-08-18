@@ -3,12 +3,10 @@ package com.zlzhang.stockanalysis.analysis.rise.model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zlzhang.client.handler.ActionHandler;
-import com.zlzhang.stockanalysis.client.GetAllStocksAction;
 import com.zlzhang.stockanalysis.client.GetContinueRiseStocksAction;
 import com.zlzhang.stockmodel.ContinueRiseModel;
 import com.zlzhang.stockmodel.GlobalVariable;
 import com.zlzhang.stockmodel.ResultData;
-import com.zlzhang.stockmodel.StockModel;
 
 import java.io.Serializable;
 import java.util.List;

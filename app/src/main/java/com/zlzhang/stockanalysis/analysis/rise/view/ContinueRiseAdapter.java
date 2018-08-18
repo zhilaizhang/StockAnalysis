@@ -72,7 +72,7 @@ public class ContinueRiseAdapter extends BaseAdapter {
         List<Float> prices = continueRiseModel.getPrices();
         String priceString = "";
         for (Float price : prices) {
-            priceString = price + ",";
+            priceString += price + ",";
         }
         holder.pricesTextView.setText(priceString);
         holder.riseDaysTextView.setText(continueRiseModel.getContinueDays() + "");
